@@ -13,7 +13,7 @@ export default {
                 taskDate,
             }
 
-            const data = await db.createTasks(newData)
+            const data = await db.createPosts(newData)
 
             if (!data || data.length === 0) {
                 return res.status(404).json({ message: 'Task not created.' })
@@ -26,7 +26,7 @@ export default {
     },
     async getPosts(req, res) {
         try {
-            const data = await db.getTasks()
+            const data = await db.getPosts()
             if (!data) {
                 return res.status(404).json({ message: 'Tasks not found' })
             }
@@ -48,7 +48,7 @@ export default {
         try {
             const { id } = req.user
 
-            const data = await db.getSingleTask(id)
+            const data = await db.getSinglePost(id)
             console.log(data)
 
             if (!data) {
@@ -79,6 +79,8 @@ export default {
                 id: postId,
             }
 
+            console.log(newData)
+
             const result = await db.updatePost(newData)
 
             if (result.affectedRows === 0) {
@@ -99,7 +101,6 @@ export default {
             }
 
             const result = await db.deletePost(id)
-            console.log(result)
 
             if (result.affectedRows === 0) {
                 return res.status(404).json({ message: 'Post not found' })
@@ -110,5 +111,4 @@ export default {
             return res.status(500).json({ message: error.message, status: 500 })
         }
     },
-
 }

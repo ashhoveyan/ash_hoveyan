@@ -19,12 +19,7 @@ router.get('/updateUserPost', (req, res) => {
 })
 
 
-router.post(
-    '/createPost',
-    validate(postSchema.create, 'body'),
-    checkToken,
-    controllers.createPost
-)
+router.post('/createPost', validate(postSchema.create, 'body'), checkToken, controllers.createPost)
 
 router.get('/getPosts', checkToken, controllers.getPosts)
 router.get('/getSinglePost', checkToken, controllers.getSinglePost)

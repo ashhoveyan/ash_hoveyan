@@ -1,7 +1,7 @@
 import connection from '../clients/db.mysql.js'
 
 export default {
-    findUserEmail: async email => {
+    login: async email => {
         const [rows] = await connection.query(
             `SELECT * FROM users WHERE email = ?`,
             [email]
@@ -9,19 +9,19 @@ export default {
         return rows.length > 0 ? rows[0] : null
     },
 
-    createUsersTable: async data => {
-        const [createUsers] = await connection.query(
-            `INSERT INTO users (first_name, last_name, email, md_password, db) VALUES (?, ?, ?, ?, ?)`,
+    registration: async data => {
+        const [rows] = await connection.query(
+            `INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)`,
             [data.firstName, data.lastName, data.email, data.password, new Date()]
         )
-        return createUsers || null
+        return rows || null
     },
 
     getUsersList: async () => {
         const [rows] = await connection.query(`SELECT * FROM users`)
         return rows
     },
-    updateUsers: async data => {
+    updateUser: async data => {
         const [rows] = await connection.query(
             `UPDATE users SET first_name = ?, last_name = ?, email = ?, md_password = ? WHERE id = ?`,
             [data.firstName, data.lastName, data.email, data.password, data.id]
@@ -29,9 +29,9 @@ export default {
         return rows
     },
     deleteUser: async id => {
-        const [result] = await connection.query(`DELETE FROM users WHERE id = ?`, [
+        const [rows] = await connection.query(`DELETE FROM users WHERE id = ?`, [
             id,
         ])
-        return result
-    },
+        return rows
+    }
 }

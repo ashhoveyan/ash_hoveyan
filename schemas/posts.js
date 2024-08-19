@@ -1,15 +1,20 @@
 import Joi from 'joi'
 
 export default {
-    updateTask: Joi.object({
-        title: Joi.string().min(3).max(100).required(),
-        description: Joi.string().min(3).max(100).required(),
-        taskDate: Joi.date().iso().greater('now').required(),
-        id: Joi.string().required(),
+    createPost: Joi.object({
+        title: Joi.string().trim().min(3).max(100).required(),
+        description: Joi.string().trim().min(3).max(5000).required(),
     }),
-    create: Joi.object({
-        title: Joi.string().min(3).max(100).required().messages(),
-        description: Joi.string().min(3).max(5000).required().messages(),
-        taskDate: Joi.date().iso().greater('now').required(),
+
+    getSinglePost: Joi.object({
+        userId: Joi.number().integer().positive().required()
     }),
+    updatePost: Joi.object({
+        postId: Joi.number().integer().positive().required(),
+        title: Joi.string().trim().min(3).max(100).required(),
+        description: Joi.string().trim().min(3).max(5000).required(),
+    }),
+    deletePost: Joi.object({
+        id: Joi.number().integer().positive().required(),
+    })
 }

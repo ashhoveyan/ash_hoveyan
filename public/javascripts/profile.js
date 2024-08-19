@@ -1,9 +1,15 @@
-const usersProfile = async () => {
+const loadUserProfile = async () => {
     const token = localStorage.getItem('token')
 
     if (!token) {
         alert('No token found. Please login first.')
         location.href = '/users/login'
+        return
+    }
+
+    const profileData = document.querySelector('#profile-data')
+    if (!profileData) {
+        console.error('Profile data element not found.')
         return
     }
 
@@ -15,23 +21,22 @@ const usersProfile = async () => {
         })
 
         const user = response.data.user
-        const profileData = document.querySelector('#profile-data')
 
         if (user) {
             profileData.innerHTML = `
-            <h2>${user.first_name} ${user.last_name}</h2>
-            <p>Email: ${user.email}</p>
-            <p>Joined: ${new Date(user.db).toLocaleDateString()}</p>
-            <p>ID: ${user.id}</p>
-        `
+                <h2>${user.first_name} ${user.last_name}</h2>
+                <p>Email: ${user.email}</p>
+                <p>Joined: ${new Date(user.db).toLocaleDateString()}</p>
+                <p>ID: ${user.id}</p>
+            `
         } else {
             profileData.innerHTML = '<p class="error">Profile data not found.</p>'
         }
     } catch (error) {
-        console.error(error)
+        console.error('Error fetching user profile:', error)
         profileData.innerHTML =
             '<p class="error">Failed to load profile. Please try again later.</p>'
     }
 }
 
-usersProfile()
+await loadUserProfile()

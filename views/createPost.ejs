@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Create Post</h1>
+    <span id="message" class="success-message"></span>
+    <form action="" id="task-form">
+        <label for="title">Title:
+            <input type="text" name="title" id="title" placeholder="Post's Title">
+            <span id="title-error" class="error"></span>
+        </label>
+
+        <label for="description">Description:
+            <textarea name="description" id="description" placeholder="Posts Description" rows="4"></textarea>
+            <span id="description-error" class="error"></span>
+        </label>
+
+        <label for="taskDate">Posts Date:
+            <input type="date" name="taskDate" id="taskDate"  />
+            <span id="taskDate-error" class="error"></span>
+        </label>
+        <input type="submit" value="Create Post" />
+
+    </form>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/javascripts/createPost.js"></script>
+</body>
+</html>
