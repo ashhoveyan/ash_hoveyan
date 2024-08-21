@@ -26,7 +26,6 @@ const loadUserProfile = async () => {
             profileData.innerHTML = `
                 <h2>${user.first_name} ${user.last_name}</h2>
                 <p>Email: ${user.email}</p>
-                <p>Joined: ${new Date(user.db).toLocaleDateString()}</p>
                 <p>ID: ${user.id}</p>
             `
         } else {

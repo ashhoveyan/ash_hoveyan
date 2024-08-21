@@ -1,13 +1,14 @@
 import db from '../clients/db.mysql.js'
+import _ from "lodash";
 
 export default {
     createPosts: async data => {
         try {
-            const [result] = await db.query(`
+            const [rows] = await db.query(`
 			INSERT INTO posts (user_id, title, description) 
             VALUES (?, ?, ?)`, [data.userId, data.title, data.description])
 
-            const postId = result.insertId
+            const postId = rows.insertId
 
             const [newPost] = await db.query(
                 'SELECT * FROM posts WHERE id = ?',
@@ -23,7 +24,7 @@ export default {
 
     getPosts: async () => {
         const [rows] = await db.query(`SELECT * FROM posts`)
-        return rows
+        return _.head(rows)
     },
     getSinglePost: async id => {
         const [rows] = await db.query(
@@ -36,11 +37,11 @@ export default {
     updatePost: async data => {
         try {
 
-            const [result] = await db.query(`
+            const [rows] = await db.query(`
             UPDATE posts SET  user_id= ? , title = ?, description =? WHERE id = ?`
                 , [data.userId, data.title, data.description, data.id,
                 ]);
-            return result
+            return _.head(rows)
 
         } catch (error) {
             console.error('Database error:', error)
@@ -48,9 +49,9 @@ export default {
         }
     },
     deletePost: async id => {
-        const [result] = await db.query(`DELETE FROM posts WHERE id = ?`, [
+        const [rows] = await db.query(`DELETE FROM posts WHERE id = ?`, [
             id,
         ])
-        return result
+        return _.head(rows)
     },
 }

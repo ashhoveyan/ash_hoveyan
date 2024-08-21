@@ -1,12 +1,13 @@
 import connection from '../clients/db.mysql.js'
+import _ from 'lodash'
 
 export default {
     login: async email => {
         const [rows] = await connection.query(
-            `SELECT * FROM users WHERE email = ?`,
+            `SELECT * FROM users WHERE email = ? LIMIT 1`,
             [email]
         )
-        return rows.length > 0 ? rows[0] : null
+        return rows.length > 0 ? _.head(rows) : null
     },
 
     registration: async data => {
@@ -14,7 +15,7 @@ export default {
             `INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)`,
             [data.firstName, data.lastName, data.email, data.password, new Date()]
         )
-        return rows || null
+        return _.head(rows) || null
     },
 
     getUsersList: async () => {
@@ -23,15 +24,15 @@ export default {
     },
     updateUser: async data => {
         const [rows] = await connection.query(
-            `UPDATE users SET first_name = ?, last_name = ?, email = ?, md_password = ? WHERE id = ?`,
+            `UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ? WHERE id = ?`,
             [data.firstName, data.lastName, data.email, data.password, data.id]
         )
-        return rows
+        return _.head(rows)
     },
     deleteUser: async id => {
         const [rows] = await connection.query(`DELETE FROM users WHERE id = ?`, [
             id,
         ])
-        return rows
+        return _.head(rows)
     }
 }

@@ -31,6 +31,7 @@ async function main() {
               FOREIGN KEY (post_id) REFERENCES posts(id)
             )
     `);
+    console.log('DB tables initialized')
 }
 main().catch((err) => {
     console.log(err);
