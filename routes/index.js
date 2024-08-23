@@ -9,6 +9,14 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.render('login')
 });
+// router.get('/', (req, res) => {
+//     req.session.userId = Date.now()
+//     console.log(1)
+//     res.json({
+//         message: req.session.userId,
+//     })
+// });
+
 
 router.use('/users', users);
 router.use('/post', posts)

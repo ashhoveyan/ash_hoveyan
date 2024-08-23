@@ -24,7 +24,7 @@ router.get('/profile/data', (req, res) => {
 });
 
 router.get('/updateUserProfile', (req, res) => {
-  res.render('showUpdateUserProfile')
+  res.render('updateUserProfile')
 });
 //apis
 router.post('/registration', validate(userSchema.registration, 'body'), controller.registration)
@@ -33,6 +33,6 @@ router.get('/getUsersList', checkToken, controller.getUsersList)
 
 router.get('/getUserProfile',validate(userSchema.getUserProfile, 'user'), checkToken, controller.getUserProfile)
 
-router.put('/updateUserProfile',checkToken,validate(userSchema.userUpdate),controller.updateUserProfile)
+router.put('/updateUserProfile',checkToken,controller.updateUserProfile)
 router.delete('/deleteUser/:id', checkToken, controller.deleteUser)
 export default router

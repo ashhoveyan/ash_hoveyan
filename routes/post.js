@@ -8,14 +8,14 @@ let router = Router()
 router.get('/createPost', (req, res) => {
     res.render('createPost')
 })
-router.get('/showGetPosts', (req, res) => {
-    res.render('showGetPosts')
+router.get('/getPosts', (req, res) => {
+    res.render('getPosts')
 })
-router.get('/showGetSinglePost', (req, res) => {
-    res.render('showGetSinglePost')
+router.get('/getSinglePost', (req, res) => {
+    res.render('getSinglePost')
 })
 router.get('/updateUserPost', (req, res) => {
-    res.render('showUpdateUserPost')
+    res.render('updateUserPost')
 })
 
 
